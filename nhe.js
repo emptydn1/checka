@@ -33,6 +33,18 @@ const cheerio = require("cheerio");
 //     });
 // };
 
+
+//check manga of author
+// const a = document.querySelectorAll("#content .container .gallery img");
+// let arr = [];
+// for (let i = 0; i < a.length; i++) {
+//   arr.push(a[i].getAttribute("data-src").slice(32, -10));
+// }
+
+
+
+
+
 const downloadImage = async (url, path, check) => {
   const writer = fs.createWriteStream(path);
   const response = await axios({
