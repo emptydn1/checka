@@ -33,17 +33,12 @@ const cheerio = require("cheerio");
 //     });
 // };
 
-
 //check manga of author
-// const a = document.querySelectorAll("#content .container .gallery img");
+// const a = document.querySelectorAll("#content .container .gallery a");
 // let arr = [];
 // for (let i = 0; i < a.length; i++) {
-//   arr.push(a[i].getAttribute("data-src").slice(32, -10));
+//   arr.push(a[i].getAttribute("href").slice(3, -1));
 // }
-
-
-
-
 
 const downloadImage = async (url, path, check) => {
   const writer = fs.createWriteStream(path);
@@ -83,7 +78,12 @@ const sleep2 = (timeountMS) =>
 (async () => {
   // const code = 177013;
 
-  let arrx = [];
+  let arrx = [
+    27126, 25862, 25415, 25414, 25273, 24541, 357686, 326682, 318472, 299872,
+    // 279994, 260287, 218744, 207984, 202932, 181750, 179114, 178068, 152420,
+    // 150703, 115362, 110964, 104294, 90508, 89054, 89053, 86593, 85390, 80499,
+    // 78399, 71377,
+  ];
 
   try {
     for (let zx = 0; zx < arrx.length; zx++) {
@@ -104,9 +104,8 @@ const sleep2 = (timeountMS) =>
 
             for (let i = 0; i < tvn.length; i++) {
               let imgPath = path.resolve(__dirname, `${rmUrl}/${i + 1}.jpg`);
-
               await sleep2(500);
-              downloadImage(tvn[i], imgPath)
+              downloadImage(tvn[i], imgPath, true)
                 .then((_) => {
                   console.log(`Image ${i + 1} downloaded`);
                 })
@@ -118,15 +117,15 @@ const sleep2 = (timeountMS) =>
           }
         } else {
           // https://nhentai.net/artist/yamashita-kurowo/
-          if (nhentai.exists(`${code}`)) {
-            const dojin = await nhentai.getDoujin(`${code}`);
-            folderExist(code);
+          if (nhentai.exists(`${arrx[zx]}`)) {
+            const dojin = await nhentai.getDoujin(`${arrx[zx]}`);
+            console.log(arrx[zx]);
+            folderExist(arrx[zx]);
             await sleep2(1000);
             for (let i = 0; i < dojin.pages.length; i++) {
-              let imgPath = path.resolve(__dirname, `${code}/${i + 1}.jpg`);
-
+              let imgPath = path.resolve(__dirname, `${arrx[zx]}/${i + 1}.jpg`);
               await sleep2(500);
-              downloadImage(dojin.pages[i], imgPath)
+              downloadImage(dojin.pages[i], imgPath, false)
                 .then((_) => {
                   console.log(`Image ${i + 1} downloaded`);
                 })
