@@ -3,6 +3,7 @@
 *::before {
   margin: 0;
   padding: 0;
+  background-repeat: no-repeat;
   box-sizing: inherit;
 }
 
@@ -31,18 +32,40 @@ body {
   font-size: 1.125rem; //18px
 }
 
-// Text
+// Text/* Tắt margin default để mình dễ control margin theo design hơn */
 h1,
 h2,
-h3 {
-  font-weight: 300;
-  line-height: 1.15;
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
 }
 
-p {
-  line-height: 1.5;
-  margin-bottom: 2.25rem;
+/* Chỉ cho phép textarea được kéo dãn theo chiều dọc, trông sẽ đẹp hơn, không làm xấu layout */
+textarea {
+  resize: vertical;
 }
+
+/* Xóa bỏ khoảng trắng thừa dưới image */
+img {
+  vertical-align: middle;
+}
+
+
+/* Cũng để dễ control theo design, nên mình thường reset luôn ul, ol */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Tạo hiệu ứng bôi đen text khác biệt hơn mặc định */
+::selection {
+  background: #0031a2;
+  color: #fff;
+}
+
 
 a,
 a:visited,
