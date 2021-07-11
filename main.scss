@@ -1,11 +1,3 @@
-*,
-*::after,
-*::before {
-  margin: 0;
-  padding: 0;
-  background-repeat: no-repeat;
-  box-sizing: inherit;
-}
 
 html {
   font-size: 100%;
@@ -28,8 +20,21 @@ html {
   //   }
 }
 
+*,
+*::after,
+*::before {
+  background-repeat: no-repeat;
+  box-sizing: inherit;
+}
+
+
+
 body {
+  margin: 0;
+  padding: 0;
   font-size: 1.125rem; //18px
+  font-family:'';
+  line-height: 1.3
 }
 
 // Text/* Tắt margin default để mình dễ control margin theo design hơn */
