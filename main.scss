@@ -1,0 +1,176 @@
+
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+  //   font-size: 62.5%; //1 rem = 10px; 10px/16px = 62.5%
+
+  //   @include respond(tab-land) {
+  //     // width < 992px?
+  //     font-size: 56.25%; //1 rem = 9px, 9/16 = 5625
+  //   }
+
+  //   @include respond(tab-port) {
+  //     // width < 768px?
+  //     font-size: 50%; //1 rem = 8px, 8/16 = 0.5
+  //   }
+
+  //   @include respond(big-desktop) {
+  //     //1200 >
+  //     font-size: 75%; //1rem = 12, 12/16
+  //   }
+}
+
+*,
+*::after,
+*::before {
+  background-repeat: no-repeat;
+  box-sizing: inherit;
+}
+
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 1.125rem; //18px
+  font-family:'';
+  line-height: 1.3
+}
+
+// Text/* Tắt margin default để mình dễ control margin theo design hơn */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+/* Chỉ cho phép textarea được kéo dãn theo chiều dọc, trông sẽ đẹp hơn, không làm xấu layout */
+textarea {
+  resize: vertical;
+}
+
+/* Xóa bỏ khoảng trắng thừa dưới image */
+img {
+  vertical-align: middle;
+}
+
+
+/* Cũng để dễ control theo design, nên mình thường reset luôn ul, ol */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Tạo hiệu ứng bôi đen text khác biệt hơn mặc định */
+::selection {
+  background: #0031a2;
+  color: #fff;
+}
+
+
+a,
+a:visited,
+a:hover {
+  text-decoration: none;
+}
+
+// Spacing
+.container {
+  max-width: 69.375rem;
+  margin: 0 auto;
+
+  &--pall {
+    padding-top: 4.375rem;
+    padding-right: 1.5rem;
+    padding-bottom: 4.375rem;
+    padding-left: 1.5rem;
+
+    @include breakpoint-up(large) {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+  &--py {
+    padding-top: 4.375rem;
+    padding-bottom: 4.375rem;
+
+    @include breakpoint-up(large) {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+  &--px {
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+  }
+  &--pt {
+    padding-top: 4.375rem;
+
+    @include breakpoint-up(large) {
+      padding-top: 6rem;
+    }
+  }
+  &--pr {
+    padding-right: 1.5rem;
+  }
+  &--pb {
+    padding-bottom: 4.375rem;
+
+    @include breakpoint-up(large) {
+      padding-bottom: 6rem;
+    }
+  }
+  &--pl {
+    padding-left: 1.5rem;
+  }
+}
+
+// Breakpoints
+@media (min-width: 64em) {
+  // styles go here
+}
+
+// 640px, 1024px, 1400px
+$breakpoints-up: (
+  "medium": "40em",
+  "large": "64em",
+  "xlarge": "87.5em",
+);
+
+// 639px, 1023px, 1399px
+$breakpoints-down: (
+  "small": "39.9375em",
+  "medium": "63.9375em",
+  "large": "87.4375em",
+);
+
+@mixin breakpoint-up($size) {
+  @media (min-width: map-get($breakpoints-up, $size)) {
+    @content;
+  }
+}
+
+@mixin breakpoint-down($size) {
+  @media (max-width: map-get($breakpoints-down, $size)) {
+    @content;
+  }
+}
+
+
+
+
+.hide-for-mobile {
+  @include breakpoint-down(medium){
+    display: none;
+  }
+}
+
+.hide-for-desktop {
+  @include breakpoint-up(large){
+    display: none;
+  }
+}

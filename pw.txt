@@ -1,0 +1,18 @@
+let a = document.querySelector('settings-ui')?.shadowRoot?.activeElement.shadowRoot.activeElement.shadowRoot.activeElement.shadowRoot.activeElement.querySelector('#passwordSection').shadowRoot.children[16].querySelector('.list-frame .cr-separators.list-with-header').querySelectorAll('password-list-item');
+
+a.forEach(e => {
+    e.shadowRoot.children[7].querySelector('.password-column #showPasswordButton').click()
+})
+
+let b = [];
+a.forEach(e => {
+	let tem1 = e.shadowRoot.children[7].querySelector('.website-column.no-min-width a').getAttribute('href');
+    let tem2 = e.shadowRoot.children[7].querySelector('#username').value;
+    let tem3 = e.shadowRoot.children[7].querySelector('.password-column #password').value;
+
+    b.push({
+        link: tem1,
+        name: tem2,
+        pw: tem3
+    })
+})
