@@ -3,3 +3,7 @@ download video m3u8
 ffmpeg -headers "Referer: https://vuighe.net/" -i https://s861.imacdn.com/m7/m3u8/259a8d7db0d05f8295ba540a9890f3e9/90684cfa1a7cca9aaac3c9d830b67152/1080.m3u8 -c copy -bsf:a aac_adtstoasc output.mp4
 
 
+
+increase volume video 
+ffmpeg -i input.mkv -filter:a "volume=4.0" output.mkv;
+
