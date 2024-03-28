@@ -2,7 +2,7 @@
 const path = require("path");
 const fs = require("fs");
 const util = require("util");
-const { copyFile } = require("fs/promises");
+const { copyFile, rm } = require("fs/promises");
 
 const checkFolderExist = (name, check = true) => {
     // name = name.replace(/\s/g, "-");
@@ -55,37 +55,67 @@ const sleep2 = (timeountMS) =>
         setTimeout(resolve, timeountMS);
     });
 
-(async (check = true) => {
+const replacePositionPractical = (n = 3, e, count) => {
+    let i = 0;
+    return e.replace(/\d+/g, (match, p1) => {
+        i++;
+        if (i == n) return count;
+        else return match;
+    });
+}
+
+
+
+
+(async () => {
     const rootFolder = path.join(
         __dirname,
-        "React Node SocketIo Public and Private Chat App"
+        "Assembly Language Programming for Reverse Engineering"
     );
     let { results } = await getAllFromFolder(rootFolder);
-    results = check
-        ? results.filter((e) => /.srt$/g.test(e))
-        : results.filter((e) => /.txt$/g.test(e));
-    console.log(results);
 
-    let results2 = check
-        ? results.map((e) => e.replace(/.srt$/g, ".txt"))
-        : results.map((e) => e.replace(/.txt$/g, ".srt"));
+    // handle trash file
+    let trashTxtFile = results.filter((e) => /.txt$/g.test(e))
+    for (i in trashTxtFile) {
+        await rm(trashTxtFile[i]);
+        await sleep2(50);
+    }
+    await sleep2(5000);
+
+
+
+
+    // handle name mp4
+    let regexMp4 = /((?!\\).)+$/g;
+    let sourceMp4 = results.filter((e) => /.mp4$/g.test(e))
+    let newNameSourceMp4 = sourceMp4.map((e, i) => e.replace(regexMp4, replacePositionPractical(1, e.match(regexMp4)[0], i + 1)))
+    for (i in sourceMp4) {
+        fs.renameSync(sourceMp4[i], newNameSourceMp4[i]);
+    }
+
+
+
+
+    // handle extension file
+    let sourceSrt = results.filter((e) => /.srt$/g.test(e));
+    let newNameSourceSrt = sourceSrt.map((e) => e.replace(/.srt$/g, ".txt"));
 
     // coppy file
-    for (x in results) {
-        await copyFile(results[x], results[x] + "-copy");
+    for (i in sourceSrt) {
+        await copyFile(sourceSrt[i], sourceSrt[i] + "-copy");
         await sleep2(50);
     }
 
     // change data
-    for (x in results) {
-        fs.readFile(results[x], { encoding: "utf-8" }, function (err, data) {
+    for (i in sourceSrt) {
+        fs.readFile(sourceSrt[i], { encoding: "utf-8" }, function (err, data) {
             if (!err) {
                 data = data
                     .replace(/\d+$/gm, "")
                     .replace(/.+-->.+(\r\n|\n|\r)/g, "")
                     .replace(/(\r\n|\n|\r)+/g, "\n\n");
 
-                fs.writeFileSync(results[x], data, {
+                fs.writeFileSync(sourceSrt[i], data, {
                     encoding: "utf8",
                     flag: "w",
                 });
@@ -94,11 +124,11 @@ const sleep2 = (timeountMS) =>
             }
         });
         await sleep2(500);
-        console.log(results[x]);
+        console.log(sourceSrt[i]);
     }
 
     // chuyen sang txt
-    for (x in results) {
-        fs.renameSync(results[x], results2[x]);
+    for (i in sourceSrt) {
+        fs.renameSync(sourceSrt[i], newNameSourceSrt[i]);
     }
 })();
