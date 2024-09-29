@@ -4,6 +4,32 @@ const fs = require("fs");
 const axios = require("axios");
 const cheerio = require("cheerio");
 
+
+
+
+
+    // const observer = new MutationObserver(function(mutations) {
+    //     mutations.forEach(function(mutation) {
+    //         console.log('DOM đã thay đổi');
+    //         alert('DOM đã thay đổi');
+    //     });
+    // });
+
+    // // Thiết lập observer để theo dõi toàn bộ thay đổi trong body
+    // observer.observe(document.body, { attributes: true, childList: true, subtree: true });
+
+
+
+
+
+
+
+
+
+
+
+
+
 // const downloadImg = async (url, g) => {
 //   await axios
 //     .get(encodeURI(url), {
